@@ -1,5 +1,6 @@
 import {  useState, useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
+import selectedSong from "../../assets/selectedSong"
 
 
 export function Home(){
@@ -16,12 +17,12 @@ export function Home(){
         },{
             photo:"https://images.macrumors.com/t/vMbr05RQ60tz7V_zS5UEO9SbGR0=/1600x900/smart/article-new/2018/05/apple-music-note.jpg",
             name:"Nah im out",
-            id:"1",
+            id:"2",
             songsIds:[]
         },{
             photo:"https://images.macrumors.com/t/vMbr05RQ60tz7V_zS5UEO9SbGR0=/1600x900/smart/article-new/2018/05/apple-music-note.jpg",
             name:"Nah im out",
-            id:"1",
+            id:"3",
             songsIds:[]
         }],
         email: "ivandavidgomezsilva@hotmail.com",
@@ -51,7 +52,7 @@ export function Home(){
             photo: "https://images.lifestyleasia.com/wp-content/uploads/sites/2/2023/08/18131252/Untitled-design-2023-08-18T104227.999-1600x900.jpg"
         }
     ];
-    const [actualSong, setActualSong] = useState(user.playlists[0]);
+    const [actualSong, setActualSong] = useState(selectedSong);
     
     /*onClick={closeInfo}*/
 
@@ -60,7 +61,8 @@ export function Home(){
     const [openInfo, setOpenInfo] = useState(() => {
         
         const storedValue = localStorage.getItem("open");
-        return storedValue === 'true'; 
+        if (!storedValue) return true
+        return storedValue !== 'true'; 
     });
 
     useEffect(() => {
@@ -83,6 +85,8 @@ export function Home(){
         }
         setOpenInfo(!openInfo)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(()=>handleOpenInfo(),[])
     const x = <svg  onClick={handleOpenInfo} xmlns="http://www.w3.org/2000/svg" style={{cursor:"pointer"}}viewBox="0 0 24 24" width={50} height={50} color={"#ffffff"} fill={"none"}>
     <path d="M19.0005 4.99988L5.00045 18.9999M5.00045 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 </svg>;
@@ -96,9 +100,11 @@ export function Home(){
             <p>There you have your playlists</p>
             <div className="playlistHomeContainer">
             {user.playlists.slice(0, 7).map((playlist, index)=>(
-                <div className="playlistHome" key={index}>
+                <Link key={index} to={`playlists/${playlist.id}`} style={{display: "block", padding: "none", margin:"none", textDecoration: "none", width:"100%"}}>
+                <div className="playlistHome" >
                     <img className="playlistHomeImg" src={playlist.photo} alt={playlist.name} /> <span>{playlist.name}</span>
                 </div>
+                </Link>
             ))} <div className="playlistHome">
                 See More
             </div>

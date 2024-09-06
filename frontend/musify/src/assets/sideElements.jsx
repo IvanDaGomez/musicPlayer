@@ -26,8 +26,8 @@ export const sideElements = [
                 <path d="M17.0516 11.114L17.5159 10.6497C19.4947 8.67095 19.4947 5.46279 17.5159 3.48405C15.5372 1.50532 12.329 1.50532 10.3503 3.48405L7.48405 6.35031C5.50532 8.32904 5.50532 11.5372 7.48405 13.5159C9.46279 15.4947 12.671 15.4947 14.6497 13.5159L14.8566 13.309" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
         ),
-        link: "/projects",
-        name: "Projects"
+        link: "/playlists",
+        name: "Playlists"
     },
     {
         svg: (
@@ -37,7 +37,7 @@ export const sideElements = [
                 <path d="M7 15.5L5 15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
         ),
-        link: "/contact",
-        name: "Contact"
+        link: "/podcasts",
+        name: "Podcasts"
     },
 ];
