@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+
+  --using1: #1A1C1E; /* Background */
+  --using2: #B0B7C3; /* Lines, separators, scrollbars */
+  --using3: #eeeeee; /* Text color */
+  --using4: #FFA500; /* Accent */
+  --using5: #4682B4; /* Buttons, divs */
+  --using6: #8a7000; /* Extra */
+
+  font-family: "Kanit", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color-scheme: light dark;
+  color: var(--using3);
+
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 0.625rem;
+}
+
+h1{
+  font-size: 5rem;
+  
+}
+h2{
+  font-size: 3rem;
+}
+div{
+  font-size: 2rem;
+}
+h3{
+  font-size: 2rem;
+}
+p{
+  font-size: 2rem;
+}
+span{
+  font-size: 1.5rem;
+}
+a{
+  text-decoration: none;
+  color:inherit;
+}
+hr{
+  height:1px;
+  border:1px solid var(--using2);
+  margin:10px 0;
+  width:100%;
+}
+/*-----------------------------------------------*/
+
+::-webkit-scrollbar{
+
+  width:0.7rem;
+ 
+}
+::-webkit-scrollbar-thumb{
+  background-color:var(--using6);
+  border-radius: 20px;
+
+}
+
+.errorContainer{
+  height: 100vh;
+  width:100vw;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--using1);
+}
+/* ---------------------------------------BARRA LATERAL-----------------------------------------*/
+
+nav{
+  
+  width:100px;
+  height:calc(85vh);
+  position:fixed;
+  top:0;
+  left:0;
+  padding:20px;
+  transition: all 300ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  z-index: 10;
+  background-color: var(--using1);
+  border-right: 2px solid var(--using2);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+nav:hover, nav:active{
+  width:max(18vw, 255px);
+
+}
+
+
+nav a{
+  text-decoration: none;
+}
+
+nav span{
+  font-size: 2.3rem;
+}
+
+nav:hover .bio{
+  width: 200px;
+  text-align: center;
+  
+}
+.side{
+  width:210px;
+  min-width: 120px;
+  height: auto;
+  padding:10px 18px;
+  border-radius: 15px;
+  
+  margin: 20px 0;
+  transition: all .3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--using1);
+  color: var(--using2);  
+}
+
+.side svg{
+  color: var(--using2);
+}
+.side:first-of-type{
+  margin: 0 0 20px 0;
+}
+
+.side:hover{
+  box-shadow: inset -150px 0 0 0 var(--using3),inset 150px 0 0 0 var(--using3) ;
+  
+  color: var(--using1)
+}
+.side:hover svg, .side:hover div{
+  transition: .3s ease-in-out;
+  color: var(--using1);
+}
+
+
+.playlistContainer{
+  width:210px;
+  min-width: 120px;
+  height: auto;
+
+  
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  place-items: center;
+}
+.playlist{
+  height: 50px;
+  width:50px;
+  border: 2px solid white;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+
+
+}
+.palettesContainer{
+  width:210px;
+  min-width: 120px;
+  height: auto;
+
+  
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  place-items: center;
+  
+}
+.paletteElement{
+  border: 2px solid var(--using2);
+  border-radius: 50%;
+  width:20px;
+  height:20px;
+  transition: all .2s ease-in-out;
+}
+.paletteElement:hover{
+  transform: scale(1.2);
+  cursor: pointer;
+}
+/*-------------------------------------------*/
+
+
+/*---------------------------------------------mainView---------------------------------------------*/
+
+
+.mainView{
+  margin-left: 100px; /*Medida de el header*/
+  margin-bottom: calc(15vh) ; /*Medida de el musicPlayer*/
+  width:calc(100vw - 100px);
+  
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: var(--using1);
+  
+}
+.firstDiv{
+  width: 100%;
+  text-align: center;
+  grid-column: 1 / 4;
+  padding: 20px;
+
+}
+.secondDiv{
+  grid-column: 4 / 6;
+  text-align: left;
+  border-left: 5px solid var(--using2);
+  padding: 20px;
+  height:auto;
+  background: var(--using1)80;
+}
+.secondDiv img{
+  width:100%;
+
+  border-radius: 5px;
+  position: relative;
+}
+.playlistHomeContainer{
+  width:100%;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  place-items: center;
+  padding:20px;
+}
+.playlistHome{
+  width: 100%;
+  height: 8rem;
+  padding:10px 30px;
+  background-color: var(--using5);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+.playlistHome:hover{
+  transform: scale(1.1);
+  background-color: var(--using4)
+}
+.playlistHome span{
+  font-size: 2rem;
+}
+.playlistHomeImg{
+  height:40px;
+  width:40px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.boton1{
+  border: none;
+  height:100%;
+  width: 100%;
+  padding:10px;
+  display: flex;
+  background-color: var(--using5);
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.boton1:hover{
+  background-color: var(--using4);
+  transform: scale(1.1);
+  
+}
+.split{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.abrir{
+  position: fixed;
+  top: 50px;
+  right:0;
+  width:40px;
+  height:40px;
+  border: 2px solid var(--using2);
+  border-left: none;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(180deg);
+  cursor: pointer;
+}
+.authorsContainers{
+  margin:20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:30px;
+  padding-right: 20px;
+}
+.authorElement{
+  height:auto;
+  width: 100%;
+  padding:20px;
+  display: flex;
+  background-color: var(--using5);
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+.authorElement:hover{
+  transform: scale(1.1);
+  background-color: var(--using4);
+}
+.authorElement img{
+  width: 80%;
+  border-radius: 5px;
+  margin: 20px 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+/*---------------------------------------music Player-------------------------------------------------*/
+
+
+.musicPlayer{
+  width:100vw;
+  height:15vh;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  
+  align-items: center;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: var(--using1);
+
+  border-top: 2px solid var(--using2);
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 100%; /* Adjust width as needed */
+  margin:0 3px;
+  height: 0.5rem; /* Set the height of the track */
+  background: var(--using2);
+  border-radius: 20px;
+  background-size: 70% 100%;
+  background-repeat: no-repeat;
+  position: relative; /* To make the thumb overlap */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2rem; /* Make the thumb taller */
+  width: 2rem; /* Adjust the width if needed */
+  background-color: var(--using4);  
+  background-size: 70% 100%;
+  border-radius: 50%;
+  
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 2rem;
+  width: 2rem;
+  background-color: var(--using4);
+  border-radius: 50%;
+  
+}
+
+input[type="range"]::-ms-thumb {
+  height: 2rem;
+  width: 2rem;
+  background-color: var(--using4);
+  border-radius: 50%;
+  margin-top: -1rem; /* Similar adjustment for Edge */
+}
+.left,.middle,.right{
+  width:auto;
+  height:auto;
+  display:flex;
+  align-items: center;
+}
+.left *{
+  margin-right:10px;
+}
+.left .añadidoAPlaylist{
+  width:30px;
+  height:30px;
+  border-radius: 50%;
+  border: 2px solid var(--using2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+}
+.left .añadidoAPlaylist svg{
+  margin:auto;
+}
+.left .selected{
+  background-color: var(--using4);
+}
+.middle{
+  flex-direction: column;
+  width: 20vw;
+}
+.middle div{
+  width:auto;
+  
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.middle svg {
+  width:40px;
+  height:40px;
+  margin:10px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  color:var(--using2);
+  
+}
+.middle svg:nth-of-type(even){
+  fill:var(--using2)
+}
+.middle svg:hover{
+  transform:scale(1.1);
+}
+.middle input[type="range"] {
+  width: min(20vw, 500px) !important;
+}
+
+.playstate {
+  width:60px;
+  height:60px;
+  border-radius: 5px;
+  background-color: var(--using2);
+
+}
+
+.middle .rotate{
+  transform: rotate(180deg);
+}
+
+.middle .rotate:hover{
+  transform: rotate(180deg) scale(1.1);
+}
+
+.volumeClick:hover{
+  cursor: pointer;
+}
