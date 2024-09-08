@@ -1,6 +1,6 @@
 import {  useState, useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
-import selectedSong from "../../assets/selectedSong"
+import playlist from "../../assets/selectedSong"
 
 
 export function Home(){
@@ -52,7 +52,7 @@ export function Home(){
             photo: "https://images.lifestyleasia.com/wp-content/uploads/sites/2/2023/08/18131252/Untitled-design-2023-08-18T104227.999-1600x900.jpg"
         }
     ];
-    const [actualSong, setActualSong] = useState(selectedSong);
+    const [selectedSong, setselectedSong] = useState(playlist[0]);
     
     /*onClick={closeInfo}*/
 
@@ -138,9 +138,9 @@ export function Home(){
                 <h2>Song Info</h2> 
                 {x}
             </div>
-            <h1>{actualSong.name}</h1>
-            <img src={actualSong.photo} alt={actualSong.name} />
-            <h3>Author: {actualSong.author}</h3>
+            <h1>{selectedSong.name}</h1>
+            <img src={selectedSong.photo} alt={selectedSong.name} />
+            <h3>Author: {selectedSong.author}</h3>
         </div>
         </div>
         </>

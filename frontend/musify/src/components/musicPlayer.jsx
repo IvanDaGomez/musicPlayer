@@ -1,6 +1,6 @@
 import {  useEffect, useRef, useState } from "react"
-import selectedSong from "../assets/selectedSong.js"
-export function MusicPlayer(){
+import { playlist } from "../assets/playlist.js"
+function MusicPlayer(){
 
     const volumeOptions = {
         MUTED: (
@@ -22,7 +22,7 @@ export function MusicPlayer(){
             </svg>
         ),
     };
-    //const [selectedSong, setSelectedSong] = useState();
+    const [selectedSong, setSelectedSong] = useState(JSON.parse(localStorage.getItem("song")) ?? playlist.children[0]);
 
     const audio = useRef(null);
     const volumeSlider = useRef(null);
@@ -69,7 +69,7 @@ export function MusicPlayer(){
                 audio.current.removeEventListener("loadedmetadata", handleMetadataLoaded);
             }
         };
-    }, [actualSongState]); // Add actualSongState as a dependency
+    }, [actualSongState, repeatButton]); // Add actualSongState as a dependency
 
 
     function changePlayState(actualSongState){
@@ -153,10 +153,42 @@ export function MusicPlayer(){
         localStorage.setItem("currentTime", audio.current.currentTime);
     };
 
-    const handleLastSong = ()=>{
-        //if (mediaPlayer.current.value < 5) setSelectedSong(playlists[-1])
-        audio.current.currentTime = 0
+    const handleLastSong = () => {
+        const currentIndex = playlist.children.findIndex(song => song.id === selectedSong.id);
+        const newSong = mediaPlayer.current.value < 5
+            ? playlist.children[currentIndex > 0 ? currentIndex - 1 : playlist.children.length - 1]
+            : selectedSong;
+    
+        setSelectedSong(newSong);
+        localStorage.setItem("song", JSON.stringify(newSong));
+        resetAudio();
+    };
+    
+    const handleNextSong = () => {
+        const currentIndex = playlist.children.findIndex(song => song.id === selectedSong.id);
+        const newSong = playlist.children[currentIndex < playlist.children.length - 1 ? currentIndex + 1 : 0];
+    
+        setSelectedSong(newSong);
+        localStorage.setItem("song", JSON.stringify(newSong));
+        resetAudio();
+        audio.current.currentTime = 0;
+    };
+    
+    function resetAudio() {
+        if (audio.current) {            
+            // Use a Promise to wait for the load to complete before playing
+            audio.current.addEventListener('canplaythrough', () => {
+                audio.current.currentTime = 0; // Reset current time
+                audio.current.play().catch(error => {
+                    console.error("Error playing audio:", error);
+                });
+                setActualSongState("play")
+            }, { once: true });
+        } else {
+            console.error("Audio reference is not set.");
+        }
     }
+    
 
     const handleRepeatButton = ()=>{
         if(!audio.current.loop) audio.current.loop = true
@@ -164,10 +196,12 @@ export function MusicPlayer(){
         setRepeatButton(!repeatButton)
         localStorage.setItem("repeat", `${repeatButton}`)
     }
-
+    function renderAudio(selectedSong){
+        return <audio ref={audio} src={selectedSong.song} onTimeUpdate={handleAudio} onEnded={handleNextSong}></audio>
+    }
     return (
         <>
-        <audio ref={audio} src={selectedSong.song} onTimeUpdate={handleAudio} ></audio>
+        {renderAudio(selectedSong)} 
         <div className="musicPlayer">
             <div className="left">
                 <img src={selectedSong.photo} alt={selectedSong.name} title={selectedSong.name}/>
@@ -199,7 +233,7 @@ export function MusicPlayer(){
     <path d="M18.8906 12.846C18.5371 14.189 16.8667 15.138 13.5257 17.0361C10.296 18.8709 8.6812 19.7884 7.37983 19.4196C6.8418 19.2671 6.35159 18.9776 5.95624 18.5787C5 17.6139 5 15.7426 5 12C5 8.2574 5 6.3861 5.95624 5.42132C6.35159 5.02245 6.8418 4.73288 7.37983 4.58042C8.6812 4.21165 10.296 5.12907 13.5257 6.96393C16.8667 8.86197 18.5371 9.811 18.8906 11.154C19.0365 11.7084 19.0365 12.2916 18.8906 12.846Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
 </svg>}
                 
-                <svg className="rotate"xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width={30} height={30} color={"#ffffff"} fill={"#ffffff"}>
+                <svg onClick={handleNextSong} className="rotate" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width={30} height={30} color={"#ffffff"} fill={"#ffffff"}>
     <path d="M2.16293 12.9178C2.4453 13.6884 3.29859 14.3047 5.00518 15.5372C7.33231 17.218 8.49587 18.0583 9.4688 17.9969C10.2118 17.9499 10.9024 17.6007 11.3777 17.0315C12 16.2863 12 14.8575 12 12C12 9.14246 12 7.71369 11.3777 6.96846C10.9024 6.39933 10.2118 6.0501 9.4688 6.00315C8.49587 5.94167 7.33231 6.78203 5.00518 8.46275C3.29859 9.6953 2.4453 10.3116 2.16293 11.0822C1.94569 11.675 1.94569 12.325 2.16293 12.9178Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
     <path d="M12.1629 12.9178C12.4453 13.6884 13.2986 14.3047 15.0052 15.5372C17.3323 17.218 18.4959 18.0583 19.4688 17.9969C20.2118 17.9499 20.9024 17.6007 21.3777 17.0315C22 16.2863 22 14.8575 22 12C22 9.14246 22 7.71369 21.3777 6.96846C20.9024 6.39933 20.2118 6.0501 19.4688 6.00315C18.4959 5.94167 17.3323 6.78203 15.0052 8.46275C13.2986 9.6953 12.4453 10.3116 12.1629 11.0822C11.9457 11.675 11.9457 12.325 12.1629 12.9178Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
 </svg>   
@@ -224,3 +258,5 @@ export function MusicPlayer(){
         </>
     )
 }
+
+export {MusicPlayer}
