@@ -225,7 +225,7 @@ nav:hover .bio{
 }
 .firstDiv{
   width: 100%;
-  text-align: center;
+  text-align: left;
   grid-column: 1 / 4;
   padding: 20px;
 
@@ -350,31 +350,46 @@ nav:hover .bio{
   object-position: center;
 }
 
-/*---------------------------------------music Player-------------------------------------------------*/
+@media only screen and (max-width:1280px) {
+  .playlistHomeContainer{
+    grid-template-columns: 1fr;
+  }
+  .firstDiv{
+    grid-column: 1/6;
+  }
+  .authorsContainers{
+    grid-template-columns: 1fr 1fr ;
+  }
+}
 
+/*---------------------------------------music Player-------------------------------------------------*/
 
 .musicPlayer{
   width:100vw;
-  height:15vh;
-  padding: 30px;
-  display: flex;
-  justify-content: space-between;
-  
-  align-items: center;
-
+  height:auto;
+  padding: 20px;
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 1000;
   background-color: var(--using1);
-
   border-top: 2px solid var(--using2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.musicPlayer .down{
+  display: flex;
+  justify-content: space-between;
+  width:100%;
+  align-items: center;
 }
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  width: 100%; /* Adjust width as needed */
+  width: 50%; /* Adjust width as needed */
   margin:0 3px;
   height: 0.5rem; /* Set the height of the track */
   background: var(--using2);
@@ -411,12 +426,13 @@ input[type="range"]::-ms-thumb {
   margin-top: -1rem; /* Similar adjustment for Edge */
 }
 .left,.middle,.right{
-  width:auto;
+  width: max(20vw, 300px);
   height:auto;
   display:flex;
   align-items: center;
   text-align: left;
 }
+
 .left *{
   margin-right:10px;
 }
@@ -471,6 +487,9 @@ input[type="range"]::-ms-thumb {
 .middle input[type="range"] {
   width: min(20vw, 500px) !important;
 }
+.right{
+  justify-content: flex-end;
+}
 .timeline{
   width:100%;
   display: flex;
@@ -494,5 +513,78 @@ input[type="range"]::-ms-thumb {
 }
 
 .volumeClick:hover{
+  cursor: pointer;
+}
+
+
+/*-----------------------------------------------PLAYLIST-------------------------*/
+
+.controls {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  background: #00000060;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  cursor: pointer;
+}
+
+.info {
+  width: 100%;
+  height: 30vh;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.info img {
+  width: auto; /* Or use a percentage if necessary */
+  height: 100%; 
+  object-fit: cover; /* Ensures the image maintains aspect ratio */
+  border-radius: 10px;
+  
+}
+
+.songsContainer {
+  width: 100%; /* Use full width for better responsiveness */
+  max-width: 80vw; /* Limit max width */
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* Center the container */
+}
+
+.song {
+  width: 100%;
+  margin: 5px auto;
+  height: auto; /* Let height adjust based on content */
+  display: flex;
+  justify-content: flex-start; /* Better for text/image alignment */
+  align-items: center;
+  background: #00000060;
+  padding: 10px;
+  transition: all .2s ease-in-out;
+  border-radius: 10px;
+  border: 2px solid var(--using2);
+}
+
+.song img {
+  width: 50px; /* Set a fixed size for better control */
+  height: 50px; /* Keep it square */
+  object-fit: cover; /* Maintains aspect ratio within the fixed size */
+  margin-right: 10px; /* Space between image and text */
+}
+
+.song:hover{
+  background: #ffffff60;
   cursor: pointer;
 }

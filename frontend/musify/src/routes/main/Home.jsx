@@ -1,6 +1,6 @@
 import {  useState, useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
-import playlist from "../../assets/selectedSong"
+import Queue from "../../components/queue"
 
 
 export function Home(){
@@ -52,7 +52,7 @@ export function Home(){
             photo: "https://images.lifestyleasia.com/wp-content/uploads/sites/2/2023/08/18131252/Untitled-design-2023-08-18T104227.999-1600x900.jpg"
         }
     ];
-    const [selectedSong, setselectedSong] = useState(playlist[0]);
+
     
     /*onClick={closeInfo}*/
 
@@ -87,9 +87,7 @@ export function Home(){
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>handleOpenInfo(),[])
-    const x = <svg  onClick={handleOpenInfo} xmlns="http://www.w3.org/2000/svg" style={{cursor:"pointer"}}viewBox="0 0 24 24" width={50} height={50} color={"#ffffff"} fill={"none"}>
-    <path d="M19.0005 4.99988L5.00045 18.9999M5.00045 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-</svg>;
+
     return (
         <>
         <div className="mainView">
@@ -134,13 +132,7 @@ export function Home(){
             </svg>
         </div>
         <div className="secondDiv"  ref={secondDiv}>
-            <div className="split">
-                <h2>Song Info</h2> 
-                {x}
-            </div>
-            <h1>{selectedSong.name}</h1>
-            <img src={selectedSong.photo} alt={selectedSong.name} />
-            <h3>Author: {selectedSong.author}</h3>
+            {/*<Queue handleOpenInfo={handleOpenInfo}/>*/}
         </div>
         </div>
         </>

@@ -2,6 +2,7 @@ export const playlist = {
     name: "Anime Playlist",
     description: "A collection of iconic anime tracks.",
     id: 101,
+    photo: "/drstonephoto.jpg",
     children: [
         {
             photo: "/drstonephoto.jpg",
