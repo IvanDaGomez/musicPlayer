@@ -1,7 +1,7 @@
 # musicPlayer
 
 ## Project Overview
-musicPlayer is a web application designed to provide users with a seamless music streaming experience, similar to Spotify. Users can search for songs, create playlists, and manage their personal settings. The app connects to a database to store user preferences, playlists, and streaming history, delivering a personalized music experience.
+musicPlayer is a web application designed to provide users with a music streaming experience, similar to Spotify. Users can search for songs, create playlists, and manage their personal settings. The app connects to a database to store user preferences, playlists, and streaming history, delivering a personalized music experience.
 
 ## Features
 - **Search Music**: Search and discover songs by title, artist, or genre.
@@ -16,5 +16,7 @@ musicPlayer is a web application designed to provide users with a seamless music
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB (NoSQL)
 - **Authentication**: JSON Web Tokens (JWT)
-- **Audio Streaming**: HTML5 Audio API
-- **State Management**: Context API (or Redux if applicable)
+
+## Images
+
+![Captura de pantalla 2024-10-14 182106](https://github.com/user-attachments/assets/32bf749f-26a1-4ded-a75d-6b9a26dd70ba)
